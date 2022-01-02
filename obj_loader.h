@@ -1,8 +1,6 @@
 #ifndef __OBJ_LOADER_H__
 #define __OBJ_LOADER_H__
 
-typedef struct mesh {
-
-} mesh_t;
+#include "mesh.h"
 
 #endif // __OBJ_LOADER_H__
