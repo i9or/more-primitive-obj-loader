@@ -18,11 +18,11 @@ void init_mesh(mesh *m) {
     init_tex2_array(&(m->uvs));
 }
 
-void write_vertex(mesh *m, vec3 v) { write_vec3_array(&(m->vertices), v); }
+void write_mesh_vertex(mesh *m, vec3 v) { write_vec3_array(&(m->vertices), v); }
 
-void write_normal(mesh *m, vec3 n) { write_vec3_array(&(m->normals), n); }
+void write_mesh_normal(mesh *m, vec3 n) { write_vec3_array(&(m->normals), n); }
 
-void write_uv(mesh *m, tex2 t) { write_tex2_array(&(m->uvs), t); }
+void write_mesh_uv(mesh *m, tex2 t) { write_tex2_array(&(m->uvs), t); }
 
 void free_mesh(mesh *m) {
     free_vec3_array(&(m->vertices));
