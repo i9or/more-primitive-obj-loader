@@ -9,6 +9,7 @@
 
 #define MAX_LINE_WIDTH 1024
 #define SPACE_DELIMITER " "
+#define STRIP_NEWLINE(str) (str)[strcspn((str), "\r\n")] = '\0'
 
 bool load_obj(const char *file_name, mesh *m) {
     init_mesh(m);
@@ -20,17 +21,38 @@ bool load_obj(const char *file_name, mesh *m) {
     }
 
     char line[MAX_LINE_WIDTH];
-    unsigned int line_counter;
+    int line_counter = 0;
     while (fgets(line, MAX_LINE_WIDTH, fp) != NULL) {
-        // printf("Read a line: %s", line);
         char *token;
 
         token = strtok(line, SPACE_DELIMITER);
 
-        if (strcmp(token, "#") == 0) {
-            puts("Skipping comment line");
+        if (strcmp(token, "mtllib") == 0) {
+            token = strtok(NULL, SPACE_DELIMITER);
+            STRIP_NEWLINE(token);
+            write_mesh_mtl(m, token);
+        } else if (strcmp(token, "o") == 0) {
+            token = strtok(NULL, SPACE_DELIMITER);
+            STRIP_NEWLINE(token);
+            write_mesh_name(m, token);
         } else if (strcmp(token, "v") == 0) {
-            puts("Found a vertex");
+            char *x_str, *y_str, *z_str;
+
+            x_str = strtok(NULL, SPACE_DELIMITER);
+            y_str = strtok(NULL, SPACE_DELIMITER);
+            z_str = strtok(NULL, SPACE_DELIMITER);
+
+            vec3 v = {atof(x_str), atof(y_str), atof(z_str)};
+            write_mesh_vertex(m, v);
+        } else if (strcmp(token, "vn") == 0) {
+            char *x_str, *y_str, *z_str;
+
+            x_str = strtok(NULL, SPACE_DELIMITER);
+            y_str = strtok(NULL, SPACE_DELIMITER);
+            z_str = strtok(NULL, SPACE_DELIMITER);
+
+            vec3 n = {atof(x_str), atof(y_str), atof(z_str)};
+            write_mesh_normal(m, n);
         } else {
             puts("This token is not yet supported");
         }
@@ -38,11 +60,11 @@ bool load_obj(const char *file_name, mesh *m) {
         line_counter++;
     }
 
-    if (feof(fp)) {
-        puts("Reached the end of the file");
-        printf("Total number of lines are read: %d\n", line_counter);
+    if (!feof(fp)) {
+        perror("Error loading a file");
     } else {
-        perror("Error reading a line");
+        puts("OBJ file loaded successfully");
+        printf("Total number of lines are read: %d\n", line_counter);
     }
 
     fclose(fp);
