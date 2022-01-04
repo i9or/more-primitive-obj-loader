@@ -1,12 +1,12 @@
 #ifndef __MESH_H__
 #define __MESH_H__
 
+#include "face.h"
+#include "face_array.h"
 #include "tex2.h"
 #include "tex2_array.h"
 #include "vec3.h"
 #include "vec3_array.h"
-#include "face.h"
-#include "face_array.h"
 
 typedef struct {
     char *mtl_lib;
@@ -62,9 +62,7 @@ void write_mesh_normal(mesh *m, vec3 n) { write_vec3_array(&(m->normals), n); }
 
 void write_mesh_uv(mesh *m, tex2 t) { write_tex2_array(&(m->uvs), t); }
 
-void write_mesh_face(mesh *m, face f) {
-    write_face_array(&(m->faces), f);
-}
+void write_mesh_face(mesh *m, face f) { write_face_array(&(m->faces), f); }
 
 void free_mesh(mesh *m) {
     free_mesh_mtl(m);
