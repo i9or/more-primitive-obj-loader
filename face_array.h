@@ -2,6 +2,7 @@
 #define __FACE_ARRAY_H__
 
 #include "face.h"
+#include "dynamic_array.h"
 
 typedef struct {
     unsigned int count;

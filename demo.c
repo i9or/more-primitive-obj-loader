@@ -10,8 +10,8 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    printf("Material library: \"%s\"\n", bunny.mtl_lib);
-    printf("Name of the object: \"%s\"\n", bunny.name);
+    printf("Material library: %s\n", bunny.mtl_lib);
+    printf("Name of the object: %s\n", bunny.name);
     printf("Number of vertices: %d\n", bunny.vertices.count);
     printf("Number of normals: %d\n", bunny.normals.count);
 
