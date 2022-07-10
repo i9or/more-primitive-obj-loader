@@ -52,8 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Build
+bin/*
+!bin/.gitkeep
 build/*
 !build/.gitkeep
-
-# Sublime workspace
-*.sublime-workspace

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "mesh.h"
-#include "obj_loader.h"
+#include "./src/mesh.h"
+#include "./src/obj_loader.h"
 
 int main() {
     mesh bunny;

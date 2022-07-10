@@ -13,4 +13,4 @@ cmake --build .
 ./obj_loader
 ```
 
-Tested only on macOS Monterrey.
+Tested only on macOS.

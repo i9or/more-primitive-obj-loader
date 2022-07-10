@@ -7,4 +7,4 @@
 * Implement OBJ loader
 * Implement MTL loader
 * Implement TGA loader
-* Implement simple OpenGL demo
+* Implement simple OpenGL demo using _old school_ GLUT
