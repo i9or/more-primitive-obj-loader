@@ -1,20 +1,38 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-#include "./src/mesh.h"
-#include "./src/obj_loader.h"
+#include "src/Material.h"
+#include "src/Mesh.h"
+#include "src/constants.h"
+#include "src/loadMtl.h"
+#include "src/loadObj.h"
 
 int main() {
-    mesh bunny;
-    if (!load_obj("./assets/bunny.obj", &bunny)) {
-        return EXIT_FAILURE;
-    }
+	Mesh mesh;
+	if (!loadObj("../assets/brick_cube.obj", &mesh)) {
+		return EXIT_FAILURE;
+	}
 
-    printf("Material library: %s\n", bunny.mtl_lib);
-    printf("Name of the object: %s\n", bunny.name);
-    printf("Number of vertices: %d\n", bunny.vertices.count);
-    printf("Number of normals: %d\n", bunny.normals.count);
+	printf("Material library: %s\n", mesh.mtlLib);
+	printf("Name of the object: %s\n", mesh.name);
+	printf("Number of vertices: %d\n", mesh.vertices.count);
+	printf("Number of normals: %d\n", mesh.normals.count);
+	printf("Number of texture coordinates: %d\n", mesh.uvs.count);
+	printf("Number of faces: %d\n", mesh.faces.count);
 
-    free_mesh(&bunny);
-    return EXIT_SUCCESS;
+	Material material;
+	char mtlPath[MAX_FILE_PATH_LENGTH];
+	sprintf(mtlPath, "%s%s", "../assets/", mesh.mtlLib);
+	if (!loadMtl(mtlPath, &material)) {
+		return EXIT_FAILURE;
+	}
+
+	printf("Material name: %s\n", material.name);
+	printf("Material diffuse map: %s\n", material.diffuseMapPath);
+	printf("Material normal map: %s\n", material.normalMapPath);
+
+	// Clean up
+	freeMaterial(&material);
+	freeMesh(&mesh);
+	return EXIT_SUCCESS;
 }
