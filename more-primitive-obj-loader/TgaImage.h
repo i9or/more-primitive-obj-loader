@@ -36,7 +36,6 @@ typedef struct {
   TgaPixel *imageData;
 } TgaImage;
 
-void printTgaHeaderLine(char *label, int value);
 void printTgaHeader(TgaHeader header);
 bool isTgaImageFormatSupported(TgaHeader header);
 TgaPixel *initImageData(size_t numberOfPixels);

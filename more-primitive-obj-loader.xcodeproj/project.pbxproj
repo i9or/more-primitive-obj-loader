@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		782F96102A646D0200DB478D /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782F960F2A646D0200DB478D /* GLUT.framework */; };
+		782F96122A646D0800DB478D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782F96112A646D0800DB478D /* OpenGL.framework */; };
 		78A9A5482A63E7F500F9436B /* Face.c in Sources */ = {isa = PBXBuildFile; fileRef = 78A9A5472A63E7F500F9436B /* Face.c */; };
 		78A9A54B2A63E87A00F9436B /* FaceArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 78A9A54A2A63E87A00F9436B /* FaceArray.c */; };
 		78A9A54E2A63E98100F9436B /* DynamicArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 78A9A54D2A63E98100F9436B /* DynamicArray.c */; };
@@ -38,6 +40,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		782F960F2A646D0200DB478D /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		782F96112A646D0800DB478D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		78A9A5462A63E7F500F9436B /* Face.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Face.h; sourceTree = "<group>"; };
 		78A9A5472A63E7F500F9436B /* Face.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Face.c; sourceTree = "<group>"; };
 		78A9A5492A63E87A00F9436B /* FaceArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceArray.h; sourceTree = "<group>"; };
@@ -83,12 +87,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782F96102A646D0200DB478D /* GLUT.framework in Frameworks */,
+				782F96122A646D0800DB478D /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		782F960E2A646D0200DB478D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				782F96112A646D0800DB478D /* OpenGL.framework */,
+				782F960F2A646D0200DB478D /* GLUT.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		78B70BA32A63117F00F9E4F0 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +115,7 @@
 				78B70BB62A63126000F9E4F0 /* .clang-format */,
 				78B70BAE2A63117F00F9E4F0 /* more-primitive-obj-loader */,
 				78B70BAD2A63117F00F9E4F0 /* Products */,
+				782F960E2A646D0200DB478D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -344,6 +360,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = ./bin;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"GL_SILENCE_DEPRECATION=1",
+				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -354,6 +375,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = ./bin;
+				GCC_PREPROCESSOR_DEFINITIONS = "GL_SILENCE_DEPRECATION=1";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

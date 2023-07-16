@@ -29,9 +29,34 @@ bool loadTga(const char *fileName, TgaImage *img) {
   img->header.pixelDepth = (char)fgetc(pFile);
   img->header.imageDescriptor = (char)fgetc(pFile);
 
-  printTgaHeader(img->header);
+  if (isTgaImageFormatSupported(img->header)) {
+    size_t numberOfPixels = img->header.width * img->header.height;
+    img->imageData = initImageData(numberOfPixels);
+
+    size_t bytesToRead = img->header.pixelDepth / 8;
+    unsigned char rawPixel[4];
+
+    for (size_t i = 0; i < numberOfPixels; ++i) {
+      if (fread(rawPixel, 1, bytesToRead, pFile) != bytesToRead) {
+        perror("Unexpected end of file");
+        freeImageData(&img->imageData);
+        return false;
+      }
+
+      img->imageData[i].r = rawPixel[2];
+      img->imageData[i].g = rawPixel[1];
+      img->imageData[i].b = rawPixel[0];
+
+      if (bytesToRead == 4) {
+        img->imageData[i].a = rawPixel[3];
+      } else {
+        img->imageData[i].a = 255;
+      }
+    }
+  }
 
   printf("TGA image %s is loaded successfully\n", fileName);
   fclose(pFile);
+
   return true;
 }

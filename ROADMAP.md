@@ -6,6 +6,6 @@
 * ~~Implement Mesh data structure~~
 * ~~Implement OBJ loader~~
 * ~~Implement MTL loader~~
-* Implement TGA loader _[in progress]_
-* Implement simple OpenGL demo using _old school_ GLUT
+* ~~Implement TGA loader~~
+* Implement simple OpenGL demo using _old school_ GLUT _[in progress]_
 * ~~Refactor code to proper headers and source files~~

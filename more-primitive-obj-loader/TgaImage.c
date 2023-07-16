@@ -7,7 +7,7 @@
 
 #include "TgaImage.h"
 
-void printTgaHeaderLine(char *label, int value) {
+static void printTgaHeaderLine(char *label, int value) {
   printf("%-30s%d\n", label, value);
 }
 
