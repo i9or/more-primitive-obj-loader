@@ -1,5 +1,12 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+//
+//  constants.h
+//  more-primitive-obj-loader
+//
+//  Created by Igor on 16/07/2023.
+//
+
+#ifndef constants_h
+#define constants_h
 
 #define MAX_FILE_PATH_LENGTH 512
 #define MAX_LINE_WIDTH 1024
@@ -7,4 +14,4 @@
 #define FORWARD_SLASH_DELIMITER "/"
 #define INDEX_UNDEFINED (-1)
 
-#endif // CONSTANTS_H
+#endif /* constants_h */

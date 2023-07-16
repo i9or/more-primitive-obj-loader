@@ -8,4 +8,4 @@
 * ~~Implement MTL loader~~
 * Implement TGA loader
 * Implement simple OpenGL demo using _old school_ GLUT
-* Refactor code to proper headers and source files
+* ~~Refactor code to proper headers and source files~~

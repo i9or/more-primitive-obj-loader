@@ -1,16 +1,10 @@
 # More Primitive OBJ Loader
 
-Wavefront .obj file loader written in ANSI C99 and rendered using legacy OpenGL with GLUT.
+Wavefront .obj file loader with .tga textures written in ANSI C99 and rendered
+using legacy OpenGL with GLUT.
 
 ## Build
 
-To build and run:
-
-```bash
-cd build
-cmake ..
-cmake --build .
-./obj_loader
-```
+Open XCode and run build.
 
 Tested only on macOS.
