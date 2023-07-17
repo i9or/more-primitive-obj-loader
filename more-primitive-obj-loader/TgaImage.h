@@ -28,18 +28,14 @@ typedef struct {
 } TgaHeader;
 
 typedef struct {
-  unsigned char r, g, b, a;
-} TgaPixel;
-
-typedef struct {
   TgaHeader header;
-  TgaPixel *imageData;
+  unsigned char *imageData;
 } TgaImage;
 
 void printTgaHeader(TgaHeader header);
 bool isTgaImageFormatSupported(TgaHeader header);
-TgaPixel *initImageData(size_t numberOfPixels);
-void freeImageData(TgaPixel **data);
+unsigned char *initImageData(size_t numberOfPixels);
+void freeImageData(unsigned char **data);
 void initTgaImage(TgaImage *img);
 void freeTgaImage(TgaImage *img);
 

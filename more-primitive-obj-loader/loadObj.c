@@ -7,6 +7,10 @@
 
 #include "loadObj.h"
 
+static int parseIndex(const char *str) {
+  return ((int)strtol(str, NULL, 10) - 1);
+}
+
 bool loadObj(const char *fileName, Mesh *m) {
   initMesh(m);
 
@@ -84,13 +88,13 @@ bool loadObj(const char *fileName, Mesh *m) {
       c = strtok(NULL, FORWARD_SLASH_DELIMITER);         /* n1 or NULL */
 
       if (!c) {
-        f.v1 = (int)strtol(a, NULL, 10);
+        f.v1 = parseIndex(a);
         f.uv1 = INDEX_UNDEFINED;
-        f.n1 = (int)strtol(b, NULL, 10);
+        f.n1 = parseIndex(b);
       } else {
-        f.v1 = (int)strtol(a, NULL, 10);
-        f.uv1 = (int)strtol(b, NULL, 10);
-        f.n1 = (int)strtol(c, NULL, 10);
+        f.v1 = parseIndex(a);
+        f.uv1 = parseIndex(b);
+        f.n1 = parseIndex(c);
       }
 
       a = strtok(secondFaceStr, FORWARD_SLASH_DELIMITER); /* v2 */
@@ -98,13 +102,13 @@ bool loadObj(const char *fileName, Mesh *m) {
       c = strtok(NULL, FORWARD_SLASH_DELIMITER);          /* n2 or NULL */
 
       if (!c) {
-        f.v2 = (int)strtol(a, NULL, 10);
+        f.v2 = parseIndex(a);
         f.uv2 = INDEX_UNDEFINED;
-        f.n2 = (int)strtol(b, NULL, 10);
+        f.n2 = parseIndex(b);
       } else {
-        f.v2 = (int)strtol(a, NULL, 10);
-        f.uv2 = (int)strtol(b, NULL, 10);
-        f.n2 = (int)strtol(c, NULL, 10);
+        f.v2 = parseIndex(a);
+        f.uv2 = parseIndex(b);
+        f.n2 = parseIndex(c);
       }
 
       a = strtok(thirdFaceStr, FORWARD_SLASH_DELIMITER); /* v3 */
@@ -112,22 +116,18 @@ bool loadObj(const char *fileName, Mesh *m) {
       c = strtok(NULL, FORWARD_SLASH_DELIMITER);         /* n3 or NULL */
 
       if (!c) {
-        f.v3 = (int)strtol(a, NULL, 10);
+        f.v3 = parseIndex(a);
         f.uv3 = INDEX_UNDEFINED;
-        f.n3 = (int)strtol(b, NULL, 10);
+        f.n3 = parseIndex(b);
       } else {
-        f.v3 = (int)strtol(a, NULL, 10);
-        f.uv3 = (int)strtol(b, NULL, 10);
-        f.n3 = (int)strtol(c, NULL, 10);
+        f.v3 = parseIndex(a);
+        f.uv3 = parseIndex(b);
+        f.n3 = parseIndex(c);
       }
-
-      /*printf("%d %d %d\n", f.v1, f.uv1, f.n1);
-      printf("%d %d %d\n", f.v2, f.uv2, f.n2);
-      printf("%d %d %d\n", f.v3, f.uv3, f.n3);*/
 
       writeMeshFace(m, f);
     } else {
-      /*printf("Token \"%s\" is not supported\n", token);*/
+      printf("Token \"%s\" is not supported\n", token);
     }
 
     lineCounter++;

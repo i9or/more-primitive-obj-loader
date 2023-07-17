@@ -61,20 +61,20 @@ bool isTgaImageFormatSupported(TgaHeader header) {
   return true;
 }
 
-TgaPixel *initImageData(size_t numberOfPixels) {
-  TgaPixel *result = malloc(numberOfPixels * sizeof(TgaPixel));
+unsigned char *initImageData(size_t numberOfPixels) {
+  unsigned char *result = malloc(numberOfPixels * sizeof(unsigned char) * 4);
 
-  for (size_t i = 0; i < numberOfPixels; ++i) {
-    result[i].r = 0;
-    result[i].g = 0;
-    result[i].b = 0;
-    result[i].a = 0;
+  for (size_t i = 0; i < numberOfPixels * 4; i += 4) {
+    result[i] = 0;
+    result[i + 1] = 0;
+    result[i + 2] = 0;
+    result[i + 3] = 0;
   }
 
   return result;
 }
 
-void freeImageData(TgaPixel **data) {
+void freeImageData(unsigned char **data) {
   free(*data);
   *data = NULL;
 }

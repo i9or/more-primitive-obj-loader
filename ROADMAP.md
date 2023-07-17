@@ -7,5 +7,6 @@
 * ~~Implement OBJ loader~~
 * ~~Implement MTL loader~~
 * ~~Implement TGA loader~~
-* Implement simple OpenGL demo using _old school_ GLUT _[in progress]_
 * ~~Refactor code to proper headers and source files~~
+* ~~Implement simple OpenGL demo using _old school_ GLUT~~
+* Implement simple bump mapping using _old school_ env combiners _[in progress]_

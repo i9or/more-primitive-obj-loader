@@ -36,21 +36,21 @@ bool loadTga(const char *fileName, TgaImage *img) {
     size_t bytesToRead = img->header.pixelDepth / 8;
     unsigned char rawPixel[4];
 
-    for (size_t i = 0; i < numberOfPixels; ++i) {
+    for (size_t i = 0; i < numberOfPixels * 4; i += 4) {
       if (fread(rawPixel, 1, bytesToRead, pFile) != bytesToRead) {
         perror("Unexpected end of file");
         freeImageData(&img->imageData);
         return false;
       }
 
-      img->imageData[i].r = rawPixel[2];
-      img->imageData[i].g = rawPixel[1];
-      img->imageData[i].b = rawPixel[0];
+      img->imageData[i] = rawPixel[2];
+      img->imageData[i + 1] = rawPixel[1];
+      img->imageData[i + 2] = rawPixel[0];
 
       if (bytesToRead == 4) {
-        img->imageData[i].a = rawPixel[3];
+        img->imageData[i + 3] = rawPixel[3];
       } else {
-        img->imageData[i].a = 255;
+        img->imageData[i + 3] = 255;
       }
     }
   }

@@ -11,6 +11,8 @@
 
 #include "Material.h"
 #include "Mesh.h"
+#include "Tex2.h"
+#include "Vec3.h"
 #include "constants.h"
 #include "loadMtl.h"
 #include "loadObj.h"
@@ -19,7 +21,9 @@
 Mesh gMesh;
 Material gMaterial;
 TgaImage gDiffuseMap;
+GLuint gDiffuseMapHandle;
 TgaImage gNormalMap;
+GLuint gNormalMapHandle;
 
 void cleanUp(void);
 bool loadAssets(void);
@@ -111,15 +115,69 @@ bool init(void) {
   glEnable(GL_DEPTH_TEST);
   glShadeModel(GL_SMOOTH);
 
+  glGenTextures(1, &gDiffuseMapHandle);
+  glBindTexture(GL_TEXTURE_2D, gDiffuseMapHandle);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+               gDiffuseMap.header.width, gDiffuseMap.header.height,
+               0, GL_RGBA, GL_UNSIGNED_BYTE,
+               gDiffuseMap.imageData);
+
   return true;
 }
 
 void display(void) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // draw here
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  glColor3f(0.7f, 0.7f, 0.7f);
+
+  glEnable(GL_TEXTURE_2D);
+  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+  glBindTexture(GL_TEXTURE_2D, gDiffuseMapHandle);
+
+  glBegin(GL_TRIANGLES);
+
+  for (size_t i = 0; i < gMesh.faces.count; ++i) {
+    Face f = gMesh.faces.data[i];
+
+    Vec3 n1 = gMesh.normals.data[f.n1];
+    Vec3 n2 = gMesh.normals.data[f.n2];
+    Vec3 n3 = gMesh.normals.data[f.n3];
+
+    Tex2 uv1 = gMesh.uvs.data[f.uv1];
+    Tex2 uv2 = gMesh.uvs.data[f.uv2];
+    Tex2 uv3 = gMesh.uvs.data[f.uv3];
+
+    Vec3 v1 = gMesh.vertices.data[f.v1];
+    Vec3 v2 = gMesh.vertices.data[f.v2];
+    Vec3 v3 = gMesh.vertices.data[f.v3];
+
+    glNormal3f(n1.x, n1.y, n1.z);
+    glTexCoord2f(uv1.u, uv1.v);
+    glVertex3f(v1.x, v1.y, v1.z);
+
+    glNormal3f(n2.x, n2.y, n2.z);
+    glTexCoord2f(uv2.u, uv2.v);
+    glVertex3f(v2.x, v2.y, v2.z);
+
+    glNormal3f(n3.x, n3.y, n3.z);
+    glTexCoord2f(uv3.u, uv3.v);
+    glVertex3f(v3.x, v3.y, v3.z);
+  }
+
+  glEnd();
 
   glutSwapBuffers();
+
+  glDisable(GL_TEXTURE_2D);
 }
 
 void idle(void) {
@@ -134,7 +192,7 @@ void reshape(int w, int h) {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(60.0, width / height, 0.1, 1000.0);
-  gluLookAt(-25.0, 25.0, -25.0,
+  gluLookAt(-2.5, 2.5, -2.5,
             0.0, 0.0, 0.0,
             0.0, 1.0, 0.0);
 }
